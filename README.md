@@ -11,9 +11,9 @@ un videojuego 2D top-down de supervivencia por oleadas desarrollado en libGDX. E
 [Ver la Propuesta Completa del Proyecto aquí](https://github.com/MateoPautasso3517/DinoSoul-LibGDX/wiki/Propuesta-del-proyecto-%E2%80%90-DinoSoul)
 
 ## Tecnologías utilizadas
-- Java
-- libGDX
-- Escritorio
+- Java versión 8
+- libGDX 1.14.2
+- Plataforma objetivo: Escritorio
 
 ## Cómo compilar y ejecutar
 
