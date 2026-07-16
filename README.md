@@ -1,33 +1,28 @@
 # DinoSoul
 
-A [libGDX](https://libgdx.com/) project generated with [gdx-liftoff](https://github.com/libgdx/gdx-liftoff).
+## Integrantes del grupo
+Mateo Pautasso
+Micaela Piccione
 
-This project was generated with a template including simple application launchers and an `ApplicationAdapter` extension that draws libGDX logo.
+Descripción del proyecto
+un videojuego 2D top-down de supervivencia por oleadas desarrollado en libGDX. Está inspirado en “Vampire Survivors”. El jugador controla a Oliver M. Micovich y la historia gira alrededor de recuperar una parte de su alma que fue robada por Britany, su contraparte dinosaurio. El escenario es una playa tropical donde el jugador deberá sobrevivir a sus enemigos, recolectar objetos y derrotar al jefe final.
 
-## Platforms
+## Tecnologías utilizadas
+- Java
+- libGDX
+- Escritorio
 
-- `core`: Main module with the application logic shared by all platforms.
-- `lwjgl3`: Primary desktop platform using LWJGL3; was called 'desktop' in older docs.
+## Cómo compilar y ejecutar
 
-## Gradle
+```bash
+git clone https://github.com/MateoPautasso3517/DinoSoul-gdx.git
+```
 
-This project uses [Gradle](https://gradle.org/) to manage dependencies.
-The Gradle wrapper was included, so you can run Gradle tasks using `gradlew.bat` or `./gradlew` commands.
-Useful Gradle tasks and flags:
+### Abrir el proyecto
+Abrir la carpeta del proyecto en IntelliJ IDEA (o Eclipse) como un proyecto Gradle.
 
-- `--continue`: when using this flag, errors will not stop the tasks from running.
-- `--daemon`: thanks to this flag, Gradle daemon will be used to run chosen tasks.
-- `--offline`: when using this flag, cached dependency archives will be used.
-- `--refresh-dependencies`: this flag forces validation of all dependencies. Useful for snapshot versions.
-- `build`: builds sources and archives of every project.
-- `cleanEclipse`: removes Eclipse project data.
-- `cleanIdea`: removes IntelliJ project data.
-- `clean`: removes `build` folders, which store compiled classes and built archives.
-- `eclipse`: generates Eclipse project data.
-- `idea`: generates IntelliJ project data.
-- `lwjgl3:jar`: builds application's runnable jar, which can be found at `lwjgl3/build/libs`.
-- `lwjgl3:run`: starts the application.
-- `test`: runs unit tests (if any).
+### Ejecutar el juego
+Ejecutar la clase `Lwjgl3Launcher.java`, ubicada dentro del módulo `lwjgl3`.
 
-Note that most tasks that are not specific to a single project can be run with `name:` prefix, where the `name` should be replaced with the ID of a specific project.
-For example, `core:clean` removes `build` folder only from the `core` project.
+## Estado actual del proyecto
+Actualmente el proyecto se encuentra en la etapa de configuración inicial y estructura del proyecto.
