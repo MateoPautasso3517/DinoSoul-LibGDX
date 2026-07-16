@@ -148,6 +148,13 @@ nb-configuration.xml
 .DS_Store
 Thumbs.db
 
+# Archivos locales
+local.properties
+
+# Archivos de sistema operativo
+.DS_Store
+Thumbs.db
+
 ## Miscellaneous:
 *~
 *.*#
