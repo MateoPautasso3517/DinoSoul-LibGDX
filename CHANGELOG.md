@@ -3,7 +3,7 @@ Todos los cambios del proyecto van a ser documentados en este archivo.
 
 El formato está basado en Keep a Changelog.
 
-## [0.1.0] - 16-07-2026
+## [1.0.0] - 2026-07-16
 ### Added
 - Proyecto inicializado con gdx-liftoff
 - README con información del proyecto
