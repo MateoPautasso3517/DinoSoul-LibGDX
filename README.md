@@ -11,21 +11,33 @@ un videojuego 2D top-down de supervivencia por oleadas desarrollado en libGDX. E
 [Ver la Propuesta Completa del Proyecto aquí](https://github.com/MateoPautasso3517/DinoSoul-LibGDX/wiki/Propuesta-del-proyecto-%E2%80%90-DinoSoul)
 
 ## Tecnologías utilizadas
-- Java versión 8
-- libGDX 1.14.2
+
+- Java 8 (compatibilidad del código fuente)
+- JDK 21 (probado para ejecutar Gradle 9.6.1)
+- Gradle 9.6.1
+- LibGDX 1.14.2
 - Plataforma objetivo: Escritorio
 
 ## Cómo compilar y ejecutar
 
+### Clonar el repositorio
+
 ```bash
-git clone https://github.com/MateoPautasso3517/DinoSoul-gdx.git
+git clone https://github.com/MateoPautasso3517/DinoSoul-LibGDX.git
+cd DinoSoul-LibGDX
 ```
+### Ejecutar en Windows
 
-### Abrir el proyecto
-Abrir la carpeta del proyecto en IntelliJ IDEA (o Eclipse) como un proyecto Gradle.
+```bash
+gradlew.bat lwjgl3:run
+```
+### Ejecutar en Linux/macOS
 
-### Ejecutar el juego
-Ejecutar la clase `Lwjgl3Launcher.java`, ubicada dentro del módulo `lwjgl3`.
+```bash
+chmod +x gradlew
+./gradlew lwjgl3:run
+```
+## Requisitos
 
-## Estado actual del proyecto
-Actualmente el proyecto se encuentra en la etapa de configuración inicial y estructura del proyecto.
+- Tener instalado JDK 21 (comprobado para Gradle 9.6.1).
+- El proyecto compila el código fuente con compatibilidad Java 8.
