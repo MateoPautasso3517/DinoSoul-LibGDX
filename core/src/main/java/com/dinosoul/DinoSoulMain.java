@@ -1,6 +1,5 @@
 package com.dinosoul;
 
-import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -9,7 +8,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
-import com.badlogic.gdx.utils.ScreenUtils;
 
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
 public class DinoSoulMain extends Game {
@@ -29,7 +27,7 @@ public class DinoSoulMain extends Game {
         font = generator.generateFont(fontParams);
         generator.dispose();
 
-        setScreen((Screen) new PantallaControl(this));
+        setScreen((Screen) new PantallaControles(this));
     }
 
     @Override
