@@ -1,0 +1,45 @@
+{
+    "activeFile": "",
+    "expandedProjectPaths": [
+        "."
+    ],
+    "file.lastUsedOpenFilter": "All Files (*)",
+    "fileStates": {
+        "C:/Users/Mica/MapaDinosoul/Arena.tsx": {
+            "scaleInDock": 1
+        },
+        "Palmeras.tsx": {
+            "scaleInDock": 1
+        },
+        "Playa.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 0.5
+        },
+        "mapaMARarena.tmx": {
+            "scale": 0.22958333333333333,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 1197.8221415607984,
+                "y": 1644.283121597096
+            }
+        }
+    },
+    "last.imagePath": "E:/MapaDinosoul",
+    "map.height": 150,
+    "map.lastUsedFormat": "tmx",
+    "map.tileHeight": 16,
+    "map.tileWidth": 16,
+    "map.width": 150,
+    "openFiles": [
+    ],
+    "project": "DinoSoulMapa.tiled-project",
+    "recentFiles": [
+        "mapaMARarena.tmx",
+        "Playa.tsx"
+    ],
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.tileSize": {
+        "height": 16,
+        "width": 16
+    }
+}
