@@ -13,6 +13,7 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import entidades.*;
 
 public class PantallaJuego extends ScreenAdapter {
     private static final float ANCHO = 16f;
@@ -23,8 +24,7 @@ public class PantallaJuego extends ScreenAdapter {
     OrthogonalTiledMapRenderer mapRenderer = new OrthogonalTiledMapRenderer(mapa);
     private Viewport viewportJuego = new ExtendViewport(ANCHO, ALTO);
 
-    private float personajeX;
-    private float personajeY;
+    private final Jugador jugador;
 
     public PantallaJuego(DinoSoulMain main, Batch batch) {
         this.main = main;
@@ -42,33 +42,42 @@ public class PantallaJuego extends ScreenAdapter {
         int tileAncho = props.get("tilewidth", Integer.class);
         int tileAlto = props.get("tileheight", Integer.class);
 
-        this.personajeX = (AnchoMapa * tileAncho * unitScale) / 2f;
-        this.personajeY = (AltoMapa * tileAlto * unitScale) / 2f;
+        float centroX = (AnchoMapa * tileAncho * unitScale) / 2f;
+        float centroY = (AltoMapa * tileAlto * unitScale) / 2f;
+
+        this.jugador = new Jugador(centroX, centroY);
     }
 
     @Override
     public void resize(int width, int height) {
-        viewportJuego.update(width, height, true);
-
-
+        viewportJuego.update(width, height, false);
     }
 
     @Override
     public void render(float delta) {
+        final float ZOOM_CAMARA = 2.5f;
         OrthographicCamera camara = (OrthographicCamera) viewportJuego.getCamera();
 
-        camara.zoom = 1.5f;
+        jugador.actualizar(delta);
 
-        camara.position.set(personajeX, personajeY, 0);
+        camara.zoom = ZOOM_CAMARA;
+
+        camara.position.set(jugador.getX(), jugador.getY(), 0);
         camara.update();
         viewportJuego.apply();
         mapRenderer.setView(camara);
         mapRenderer.render();
+
+        batch.setProjectionMatrix(camara.combined);
+        batch.begin();
+        jugador.dibujar(batch);
+        batch.end();
     }
 
     @Override
     public void dispose() {
         mapRenderer.dispose();
         mapa.dispose();
+        jugador.dispose();
     }
 }
