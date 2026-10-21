@@ -10,7 +10,7 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import entidades.Jugador;
+import Personajes.Oliver;
 
 public class PantallaJuego extends ScreenAdapter {
     private float anchoMapa;
@@ -23,17 +23,17 @@ public class PantallaJuego extends ScreenAdapter {
     private OrthogonalTiledMapRenderer mapRenderer;
     private Viewport viewportJuego;
 
-    private final Jugador jugador;
+    private final Oliver oliver;
 
     public PantallaJuego(DinoSoulMain main, Batch batch) {
         this.main = main;
         this.batch = main.getBatch();
 
-        float unitScale = 1 / 16f;
+        float unidadMundo = 1 / 16f;
 
         this.viewportJuego = new ExtendViewport(ANCHO, ALTO);
         this.mapa = new TmxMapLoader().load("MapaDinosoul/mapaMARarena.tmx");
-        this.mapRenderer = new OrthogonalTiledMapRenderer(mapa, unitScale);
+        this.mapRenderer = new OrthogonalTiledMapRenderer(mapa, unidadMundo);
 
         MapProperties props = mapa.getProperties();
         int anchoMapaTiles = props.get("width", Integer.class);
@@ -41,14 +41,14 @@ public class PantallaJuego extends ScreenAdapter {
         int tileAncho = props.get("tilewidth", Integer.class);
         int tileAlto = props.get("tileheight", Integer.class);
 
-        // Guardamos los valores en las variables de clase reales
-        this.anchoMapa = anchoMapaTiles * tileAncho * unitScale;
-        this.altoMapa = altoMapaTiles * tileAlto * unitScale;
+
+        this.anchoMapa = anchoMapaTiles * tileAncho * unidadMundo;
+        this.altoMapa = altoMapaTiles * tileAlto * unidadMundo;
 
         float centroX = this.anchoMapa / 2f;
         float centroY = this.altoMapa / 2f;
 
-        this.jugador = new Jugador(centroX, centroY);
+        this.oliver = new Oliver(centroX, centroY);
     }
 
     @Override
@@ -58,14 +58,14 @@ public class PantallaJuego extends ScreenAdapter {
 
     @Override
     public void render(float delta) {
-        final float ZOOM_CAMARA = 2.5f;
+        final float ZOOM_CAMARA = 2.3f;
         OrthographicCamera camara = (OrthographicCamera) viewportJuego.getCamera();
 
-        jugador.actualizar(delta);
+        oliver.actualizar(delta);
 
         camara.zoom = ZOOM_CAMARA;
 
-        camara.position.set(jugador.getX(), jugador.getY(), 0);
+        camara.position.set(oliver.getX(), oliver.getY(), 0);
 
 
         float mitadAnchoCamara = camara.viewportWidth * camara.zoom / 2f;
@@ -81,7 +81,7 @@ public class PantallaJuego extends ScreenAdapter {
 
         batch.setProjectionMatrix(camara.combined);
         batch.begin();
-        jugador.dibujar(batch);
+        oliver.dibujar(batch);
         batch.end();
     }
 
@@ -89,6 +89,6 @@ public class PantallaJuego extends ScreenAdapter {
     public void dispose() {
         mapRenderer.dispose();
         mapa.dispose();
-        jugador.dispose();
+        oliver.dispose();
     }
 }
