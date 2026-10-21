@@ -31,11 +31,12 @@ public class PantallaControles extends ScreenAdapter {
 
     @Override
     public void render(float delta) {
-        if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
             main.setScreen(new PantallaJuego(main, main.getBatch()));
             dispose();
             return;
         }
+
         ScreenUtils.clear(Color.BLACK);
 
         float centroX = viewport.getWorldWidth() / 2;
@@ -44,6 +45,7 @@ public class PantallaControles extends ScreenAdapter {
         viewport.apply();
         batch.setProjectionMatrix(viewport.getCamera().combined);
         batch.begin();
+
         layout.setText(font, "CONTROLES");
         font.draw(batch, layout, centroX - layout.width / 2, y);
         y -= 50;

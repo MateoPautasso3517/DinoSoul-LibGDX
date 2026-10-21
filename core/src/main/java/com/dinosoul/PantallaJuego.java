@@ -1,28 +1,27 @@
 package com.dinosoul;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.utils.ScreenUtils;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import entidades.*;
+import entidades.Jugador;
 
 public class PantallaJuego extends ScreenAdapter {
+    private float anchoMapa;
+    private float altoMapa;
     private static final float ANCHO = 16f;
     private static final float ALTO = 9f;
     private final DinoSoulMain main;
     private final Batch batch;
-    TiledMap mapa = new TmxMapLoader().load("MapaDinosoul/mapaMARarena.tmx");
-    OrthogonalTiledMapRenderer mapRenderer = new OrthogonalTiledMapRenderer(mapa);
-    private Viewport viewportJuego = new ExtendViewport(ANCHO, ALTO);
+    private TiledMap mapa;
+    private OrthogonalTiledMapRenderer mapRenderer;
+    private Viewport viewportJuego;
 
     private final Jugador jugador;
 
@@ -34,16 +33,20 @@ public class PantallaJuego extends ScreenAdapter {
 
         this.viewportJuego = new ExtendViewport(ANCHO, ALTO);
         this.mapa = new TmxMapLoader().load("MapaDinosoul/mapaMARarena.tmx");
-        this.mapRenderer = new OrthogonalTiledMapRenderer(mapa, 1 / 16f);
+        this.mapRenderer = new OrthogonalTiledMapRenderer(mapa, unitScale);
 
         MapProperties props = mapa.getProperties();
-        int AnchoMapa = props.get("width", Integer.class);
-        int AltoMapa = props.get("height", Integer.class);
+        int anchoMapaTiles = props.get("width", Integer.class);
+        int altoMapaTiles = props.get("height", Integer.class);
         int tileAncho = props.get("tilewidth", Integer.class);
         int tileAlto = props.get("tileheight", Integer.class);
 
-        float centroX = (AnchoMapa * tileAncho * unitScale) / 2f;
-        float centroY = (AltoMapa * tileAlto * unitScale) / 2f;
+        // Guardamos los valores en las variables de clase reales
+        this.anchoMapa = anchoMapaTiles * tileAncho * unitScale;
+        this.altoMapa = altoMapaTiles * tileAlto * unitScale;
+
+        float centroX = this.anchoMapa / 2f;
+        float centroY = this.altoMapa / 2f;
 
         this.jugador = new Jugador(centroX, centroY);
     }
@@ -63,6 +66,14 @@ public class PantallaJuego extends ScreenAdapter {
         camara.zoom = ZOOM_CAMARA;
 
         camara.position.set(jugador.getX(), jugador.getY(), 0);
+
+
+        float mitadAnchoCamara = camara.viewportWidth * camara.zoom / 2f;
+        float mitadAltoCamara = camara.viewportHeight * camara.zoom / 2f;
+
+        camara.position.x = MathUtils.clamp(camara.position.x, mitadAnchoCamara, anchoMapa - mitadAnchoCamara);
+        camara.position.y = MathUtils.clamp(camara.position.y, mitadAltoCamara, altoMapa - mitadAltoCamara);
+
         camara.update();
         viewportJuego.apply();
         mapRenderer.setView(camara);
