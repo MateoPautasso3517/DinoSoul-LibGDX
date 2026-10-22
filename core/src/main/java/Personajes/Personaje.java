@@ -32,7 +32,7 @@ public abstract class Personaje {
         this.frame = frames[ABAJO][0];
     }
 
-    public void actualizar(float delta) {
+    public void actualizar(float delta, float mouseX, float mouseY) {
         direccion.set(0f, 0f);
         if (Gdx.input.isKeyPressed(Input.Keys.W)) direccion.y += 1f;
         if (Gdx.input.isKeyPressed(Input.Keys.S)) direccion.y -= 1f;
@@ -57,7 +57,7 @@ public abstract class Personaje {
 
         frame = frames[fila][columna];
         if (arma != null) {
-            arma.actualizar(delta, posicion.x, posicion.y);
+            arma.actualizar(delta, posicion.x, posicion.y, mouseX, mouseY);
         }
     }
     public void dibujar(Batch batch) {

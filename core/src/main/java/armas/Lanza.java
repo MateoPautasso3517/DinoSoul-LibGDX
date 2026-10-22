@@ -3,7 +3,7 @@ package armas;
 public class Lanza extends Arma {
 
     public Lanza() {
-        super("assets/ArmaOliver.png", 5.5f, 5f, 0.6f, 1f);
+        super("assets/ArmaOliver.png", 0.6f, 3f, 0.46f, -0.4f);
     }
 
 }

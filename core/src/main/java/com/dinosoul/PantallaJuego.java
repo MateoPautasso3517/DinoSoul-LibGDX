@@ -1,5 +1,7 @@
 package com.dinosoul;
 
+import Personajes.Oliver;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -8,9 +10,9 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import Personajes.Oliver;
 
 public class PantallaJuego extends ScreenAdapter {
     private float anchoMapa;
@@ -61,8 +63,6 @@ public class PantallaJuego extends ScreenAdapter {
         final float ZOOM_CAMARA = 2.3f;
         OrthographicCamera camara = (OrthographicCamera) viewportJuego.getCamera();
 
-        oliver.actualizar(delta);
-
         camara.zoom = ZOOM_CAMARA;
 
         camara.position.set(oliver.getX(), oliver.getY(), 0);
@@ -76,12 +76,20 @@ public class PantallaJuego extends ScreenAdapter {
 
         camara.update();
         viewportJuego.apply();
+
+        Vector3 mouse = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
+
+        camara.unproject(mouse);
+
+        oliver.actualizar(delta, mouse.x, mouse.y);
+
         mapRenderer.setView(camara);
         mapRenderer.render();
 
         batch.setProjectionMatrix(camara.combined);
         batch.begin();
         oliver.dibujar(batch);
+
         batch.end();
     }
 
