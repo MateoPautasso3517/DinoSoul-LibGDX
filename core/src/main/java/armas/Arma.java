@@ -40,7 +40,7 @@ public abstract class Arma {
         this.y = yDuenio + offsetY;
         this.angulo = MathUtils.atan2(mouseY - y, mouseX - x) * MathUtils.radiansToDegrees - 90f;
 
-        if (!atacando && Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+        if (!atacando && Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
             atacando = true;
             tiempoAtaque = 0f;
         }

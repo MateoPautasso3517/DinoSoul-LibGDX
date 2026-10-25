@@ -21,7 +21,7 @@ public class PantallaControles extends ScreenAdapter {
     public PantallaControles(DinoSoulMain main) {
         this.main = main;
         this.batch = main.getBatch();
-        this.font = main.getFont();
+        this.font = main.getFuente();
     }
 
     @Override
