@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Vector2;
 public abstract class Personaje {
     private static final float ANCHO = 2f;
@@ -23,16 +24,20 @@ public abstract class Personaje {
     private TextureRegion frame;
     private int fila = ABAJO;
     private float tiempoAnim = 0f;
+    private int vida;
+    private int vidaMax;
 
-    public Personaje(float x, float y, String rutaSheet, int frameAncho, int frameAlto, float velocidad) {
+    public Personaje(float x, float y, String rutaSheet, int frameAncho, int frameAlto, float velocidad, int vidaMax) {
         this.posicion = new Vector2(x, y);
         this.velocidad = velocidad;
         this.textura = new Texture(rutaSheet);
         this.frames = TextureRegion.split(textura, frameAncho, frameAlto);
         this.frame = frames[ABAJO][0];
+        this.vidaMax = vidaMax;
+        this.vida = vidaMax;
     }
 
-    public void actualizar(float delta, float mouseX, float mouseY) {
+    public void actualizar(float delta, float mouseX, float mouseY, TiledMapTileLayer colisiones) {
         direccion.set(0f, 0f);
         if (Gdx.input.isKeyPressed(Input.Keys.W)) direccion.y += 1f;
         if (Gdx.input.isKeyPressed(Input.Keys.S)) direccion.y -= 1f;
@@ -49,7 +54,16 @@ public abstract class Personaje {
             tiempoAnim += delta;
             columna = (int) (tiempoAnim / DURACION_FRAME) % 4;
             direccion.nor();
-            posicion.mulAdd(direccion, velocidad * delta);
+            float viejaX = posicion.x;
+            posicion.x += direccion.x * velocidad * delta;
+            if (hayColision(colisiones, posicion.x, posicion.y)) {
+                posicion.x = viejaX;
+            }
+            float viejaY = posicion.y;
+            posicion.y += direccion.y * velocidad * delta;
+            if (hayColision(colisiones, posicion.x, posicion.y)) {
+                posicion.y = viejaY;
+            }
         } else {
             tiempoAnim = 0f;
             columna = 0;
@@ -60,6 +74,20 @@ public abstract class Personaje {
             arma.actualizar(delta, posicion.x, posicion.y, mouseX, mouseY);
         }
     }
+
+    private boolean hayColision(TiledMapTileLayer capa, float x, float y) {
+        int tileX = (int) x;
+        int tileY = (int) y;
+
+        if (tileX < 0 || tileY < 0
+            || tileX >= capa.getWidth()
+            || tileY >= capa.getHeight()) {
+            return true;
+        }
+
+        return capa.getCell(tileX, tileY) != null;
+    }
+
     public void dibujar(Batch batch) {
         batch.draw(
             frame,
@@ -86,5 +114,13 @@ public abstract class Personaje {
         if (arma != null) {
             arma.dispose();
         }
+    }
+
+    public int getVidaMax() {
+        return vidaMax;
+    }
+
+    public int getVida() {
+        return vida;
     }
 }

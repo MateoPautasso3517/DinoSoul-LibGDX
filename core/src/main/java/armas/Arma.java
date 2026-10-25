@@ -22,16 +22,17 @@ public abstract class Arma {
     protected float tiempoAtaque = 0f;
     protected float avance = 0f;
     private static final float DURACION_ATAQUE = 0.18f;
-    private static final float DISTANCIA_ATAQUE = 1.2f;
+    private static float distanciaAtaque = 0;
     private final Vector2 haciaMouse = new Vector2();
 
-    public Arma(String rutaTextura, float ancho, float alto, float offsetX, float offsetY) {
+    public Arma(String rutaTextura, float ancho, float alto, float offsetX, float offsetY, float distanciaAtaque) {
         this.textura = new Texture(rutaTextura);
         this.ancho = ancho;
         this.alto = alto;
         this.offsetX = offsetX;
         this.offsetY = offsetY;
         this.region = new TextureRegion(textura);
+        this.distanciaAtaque = distanciaAtaque;
     }
 
     public void actualizar(float delta, float xDuenio, float yDuenio, float mouseX, float mouseY) {
@@ -46,7 +47,7 @@ public abstract class Arma {
         avance = 0f;
         if (atacando) {
             tiempoAtaque += delta;
-            avance = DISTANCIA_ATAQUE;
+            avance = distanciaAtaque;
             if (tiempoAtaque >= DURACION_ATAQUE) {
                 atacando = false;
                 avance = 0f;

@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.MathUtils;
@@ -26,6 +27,7 @@ public class PantallaJuego extends ScreenAdapter {
     private Viewport viewportJuego;
 
     private final Oliver oliver;
+    private final TiledMapTileLayer colisiones;
 
     public PantallaJuego(DinoSoulMain main, Batch batch) {
         this.main = main;
@@ -51,6 +53,8 @@ public class PantallaJuego extends ScreenAdapter {
         float centroY = this.altoMapa / 2f;
 
         this.oliver = new Oliver(centroX, centroY);
+
+        colisiones = (TiledMapTileLayer) mapa.getLayers().get("Colisiones");
     }
 
     @Override
@@ -60,6 +64,7 @@ public class PantallaJuego extends ScreenAdapter {
 
     @Override
     public void render(float delta) {
+
         final float ZOOM_CAMARA = 2.3f;
         OrthographicCamera camara = (OrthographicCamera) viewportJuego.getCamera();
 
@@ -81,7 +86,7 @@ public class PantallaJuego extends ScreenAdapter {
 
         camara.unproject(mouse);
 
-        oliver.actualizar(delta, mouse.x, mouse.y);
+        oliver.actualizar(delta, mouse.x, mouse.y, colisiones);
 
         mapRenderer.setView(camara);
         mapRenderer.render();
@@ -89,7 +94,6 @@ public class PantallaJuego extends ScreenAdapter {
         batch.setProjectionMatrix(camara.combined);
         batch.begin();
         oliver.dibujar(batch);
-
         batch.end();
     }
 
