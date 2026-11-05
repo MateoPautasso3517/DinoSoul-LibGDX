@@ -1,7 +1,7 @@
 package com.dinosoul;
 
-import Personajes.Oliver;
-import Personajes.Personaje;
+import personajes.Oliver;
+import personajes.Personaje;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Color;

@@ -55,7 +55,7 @@ Su incorporación está prevista para etapas posteriores del desarrollo.
 
 ### Tablas principales
 
-#### Personajes
+#### personajes
 
 | Campo | Tipo | Clave |
 |-------|------|-------|

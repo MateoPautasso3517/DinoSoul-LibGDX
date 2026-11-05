@@ -1,4 +1,4 @@
-package Personajes;
+package personajes;
 import armas.Arma;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -34,15 +34,15 @@ public abstract class Personaje {
         this.frames = TextureRegion.split(textura, frameAncho, frameAlto);
         this.frame = frames[ABAJO][0];
         this.vidaMax = vidaMax;
-        this.vida = vidaMax;
+        this.vida = 50;
     }
 
     public void actualizar(float delta, float mouseX, float mouseY, TiledMapTileLayer colisiones) {
         direccion.set(0f, 0f);
-        if (Gdx.input.isKeyPressed(Input.Keys.W)) direccion.y += 1f;
-        if (Gdx.input.isKeyPressed(Input.Keys.S)) direccion.y -= 1f;
-        if (Gdx.input.isKeyPressed(Input.Keys.A)) direccion.x -= 1f;
-        if (Gdx.input.isKeyPressed(Input.Keys.D)) direccion.x += 1f;
+        if (Gdx.input.isKeyPressed(Input.Keys.W) || Gdx.input.isKeyPressed(Input.Keys.UP)) direccion.y += 1f;
+        if (Gdx.input.isKeyPressed(Input.Keys.S) || Gdx.input.isKeyPressed(Input.Keys.DOWN)) direccion.y -= 1f;
+        if (Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT)) direccion.x -= 1f;
+        if (Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT)) direccion.x += 1f;
         int columna;
 
         if (direccion.len2() > 0f) {
@@ -109,6 +109,7 @@ public abstract class Personaje {
     public Arma getArma() {
         return arma;
     }
+
     public void dispose() {
         textura.dispose();
         if (arma != null) {

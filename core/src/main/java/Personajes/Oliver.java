@@ -1,4 +1,4 @@
-package Personajes;
+package personajes;
 import armas.Lanza;
 
 public class Oliver extends Personaje {

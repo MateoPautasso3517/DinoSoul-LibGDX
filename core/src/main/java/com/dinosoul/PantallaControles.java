@@ -12,9 +12,9 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class PantallaControles extends ScreenAdapter {
-    private final DinoSoulMain main;
-    private final Batch batch;
-    private final BitmapFont font;
+    private DinoSoulMain main;
+    private  Batch batch;
+    private  BitmapFont font;
     private final Viewport viewport = new ScreenViewport();
     private final GlyphLayout layout = new GlyphLayout();
 
