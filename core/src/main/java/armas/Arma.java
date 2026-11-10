@@ -2,6 +2,7 @@ package armas;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -24,6 +25,7 @@ public abstract class Arma {
     private static final float DURACION_ATAQUE = 0.18f;
     private static float distanciaAtaque = 0;
     private final Vector2 haciaMouse = new Vector2();
+    private static Sound sonido;
 
     public Arma(String rutaTextura, float ancho, float alto, float offsetX, float offsetY, float distanciaAtaque) {
         this.textura = new Texture(rutaTextura);
@@ -33,6 +35,9 @@ public abstract class Arma {
         this.offsetY = offsetY;
         this.region = new TextureRegion(textura);
         this.distanciaAtaque = distanciaAtaque;
+        if (sonido == null) {
+            sonido = Gdx.audio.newSound(Gdx.files.internal("sonidos/sonido_ataque.wav"));
+        }
     }
 
     public void actualizar(float delta, float xDuenio, float yDuenio, float mouseX, float mouseY) {
@@ -43,6 +48,7 @@ public abstract class Arma {
         if (!atacando && Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
             atacando = true;
             tiempoAtaque = 0f;
+            sonido.play();
         }
         avance = 0f;
         if (atacando) {

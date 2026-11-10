@@ -1,5 +1,7 @@
 package potenciadores;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Rectangle;
@@ -11,11 +13,15 @@ public abstract class Consumible {
     protected Texture textura;
     protected Rectangle rectangulo;
     protected boolean recolectado;
+    private static Sound sonido;
 
     public Consumible(String rutaImagen, float x, float y, float ancho, float alto) {
         this.textura = new Texture(rutaImagen);
         this.recolectado = false;
         this.rectangulo = new Rectangle(x, y, ancho, alto);
+        if (sonido == null) {
+            sonido = Gdx.audio.newSound(Gdx.files.internal("sonidos/sonido_consumible.wav"));
+        }
     }
 
     public abstract void aplicarEfecto(Personaje personaje);
@@ -25,6 +31,7 @@ public abstract class Consumible {
 
         if (rectangulo.overlaps(personaje.obtenerLimites())) {
             aplicarEfecto(personaje);
+            sonido.play();
             recolectado = true;
         }
     }

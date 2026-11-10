@@ -3,6 +3,7 @@ package com.dinosoul;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -16,9 +17,16 @@ public class DinoSoulMain extends Game {
     private BitmapFont fuente;
     private BitmapFont fuenteHUD;
     private BitmapFont fuenteTemporizador;
+    private Music musicaFondo;
 
     @Override
     public void create() {
+
+        musicaFondo = Gdx.audio.newMusic(Gdx.files.internal("sonidos/musica_fondo.wav"));
+        musicaFondo.setLooping(true);
+        musicaFondo.setVolume(0.2f);
+        musicaFondo.play();
+
         batch = new SpriteBatch();
 
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("CherryCreamSoda-Regular.ttf"));
@@ -44,6 +52,9 @@ public class DinoSoulMain extends Game {
         super.dispose();
         batch.dispose();
         fuente.dispose();
+        if (musicaFondo != null) {
+            musicaFondo.dispose();
+        }
     }
 
     public BitmapFont getFuente() {
