@@ -36,7 +36,7 @@ public class DinoSoulMain extends Game {
         fuenteTemporizador = generator2.generateFont(fontParams3);
         generator.dispose();
         generator2.dispose();
-        setScreen((Screen) new PantallaControles(this));
+        setScreen((Screen) new PantallaInicio(this));
     }
 
     @Override

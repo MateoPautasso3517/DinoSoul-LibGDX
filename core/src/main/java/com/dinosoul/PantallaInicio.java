@@ -11,14 +11,14 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
-public class PantallaControles extends ScreenAdapter {
+public class PantallaInicio extends ScreenAdapter {
     private DinoSoulMain main;
     private  Batch batch;
     private  BitmapFont font;
     private final Viewport viewport = new ScreenViewport();
     private final GlyphLayout layout = new GlyphLayout();
 
-    public PantallaControles(DinoSoulMain main) {
+    public PantallaInicio(DinoSoulMain main) {
         this.main = main;
         this.batch = main.getBatch();
         this.font = main.getFuente();

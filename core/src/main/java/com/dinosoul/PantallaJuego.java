@@ -1,7 +1,5 @@
 package com.dinosoul;
 
-import personajes.Oliver;
-import personajes.Personaje;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Color;
@@ -20,6 +18,13 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import personajes.Oliver;
+import personajes.Personaje;
+import potenciadores.Consumible;
+import potenciadores.Uva;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class PantallaJuego extends ScreenAdapter {
     private float anchoMapa;
@@ -39,6 +44,7 @@ public class PantallaJuego extends ScreenAdapter {
     private final Texture pixel;
     private float tiempoJuego = 0f;
     private final Texture reloj = new Texture("assets/reloj.png");
+    private final List<Consumible> consumibles = new ArrayList<>();
 
 
     public PantallaJuego(DinoSoulMain main, Batch batch) {
@@ -64,6 +70,8 @@ public class PantallaJuego extends ScreenAdapter {
         float centroY = this.altoMapa / 2f;
 
         this.personaje = new Oliver(centroX, centroY);
+
+        consumibles.add(new Uva(personaje.getX() + 2f, personaje.getY()));
 
         colisiones = (TiledMapTileLayer) mapa.getLayers().get("Colisiones");
 
@@ -105,6 +113,9 @@ public class PantallaJuego extends ScreenAdapter {
         camara.unproject(mouse);
 
         personaje.actualizar(delta, mouse.x, mouse.y, colisiones);
+        for (Consumible c : consumibles) {
+            c.actualizarYVerificar(personaje);
+        }
         tiempoJuego += delta;
         int total = (int) tiempoJuego;
         int minutos = total / 60;
@@ -117,6 +128,9 @@ public class PantallaJuego extends ScreenAdapter {
         batch.setProjectionMatrix(camara.combined);
         batch.begin();
         personaje.dibujar(batch);
+        for (Consumible c : consumibles) {
+            c.dibujar(batch);
+        }
         AplicarViewport();
         DibujarBarraVida();
         DibujarTemporizador(texto);
@@ -168,5 +182,8 @@ public class PantallaJuego extends ScreenAdapter {
         personaje.dispose();
         corazon.dispose();
         pixel.dispose();
+        for (Consumible c : consumibles) {
+            c.dispose();
+        }
     }
 }
