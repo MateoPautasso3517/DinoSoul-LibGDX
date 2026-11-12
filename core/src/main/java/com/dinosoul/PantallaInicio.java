@@ -12,9 +12,11 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class PantallaInicio extends ScreenAdapter {
-    private DinoSoulMain main;
-    private  Batch batch;
-    private  BitmapFont font;
+
+    private final DinoSoulMain main;
+    private final Batch batch;
+    private final BitmapFont font;
+
     private final Viewport viewport = new ScreenViewport();
     private final GlyphLayout layout = new GlyphLayout();
 
@@ -31,36 +33,50 @@ public class PantallaInicio extends ScreenAdapter {
 
     @Override
     public void render(float delta) {
-        if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
-            main.setScreen(new PantallaJuego(main, main.getBatch()));
-            dispose();
-            return;
-        }
+        manejarEntrada();
+        dibujarPantalla();
+    }
 
+    private void manejarEntrada() {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
+            main.setScreen(new PantallaJuego(main));
+        }
+    }
+
+    private void dibujarPantalla() {
         ScreenUtils.clear(Color.BLACK);
+
+        viewport.apply();
+        batch.setProjectionMatrix(viewport.getCamera().combined);
 
         float centroX = viewport.getWorldWidth() / 2;
         float y = viewport.getWorldHeight() / 2 + 100;
 
-        viewport.apply();
-        batch.setProjectionMatrix(viewport.getCamera().combined);
         batch.begin();
 
-        layout.setText(font, "CONTROLES");
-        font.draw(batch, layout, centroX - layout.width / 2, y);
+        dibujarTextoCentrado("CONTROLES", centroX, y);
         y -= 50;
 
-        layout.setText(font, "W / A / S / D - Moverse");
-        font.draw(batch, layout, centroX - layout.width / 2, y);
+        dibujarTextoCentrado("W / A / S / D - Moverse", centroX, y);
         y -= 40;
 
-        layout.setText(font, "R - Reiniciar (al morir)");
-        font.draw(batch, layout, centroX - layout.width / 2, y);
+        dibujarTextoCentrado("ESPACIO - Atacar", centroX, y);
+        y -= 40;
+
+        dibujarTextoCentrado("R - Reiniciar (al morir)", centroX, y);
         y -= 70;
 
-        layout.setText(font, "Presiona ENTER para empezar");
-        font.draw(batch, layout, centroX - layout.width / 2, y);
+        dibujarTextoCentrado("Presiona ENTER para empezar", centroX, y);
 
         batch.end();
     }
+
+    private void dibujarTextoCentrado(String texto, float centroX, float y) {
+        layout.setText(font, texto);
+
+        float x = centroX - layout.width / 2;
+
+        font.draw(batch, layout, x, y);
+    }
+
 }

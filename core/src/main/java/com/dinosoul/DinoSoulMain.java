@@ -2,59 +2,68 @@ package com.dinosoul;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 
-/** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
 public class DinoSoulMain extends Game {
+
     private SpriteBatch batch;
-    private Texture image;
+
     private BitmapFont fuente;
     private BitmapFont fuenteHUD;
     private BitmapFont fuenteTemporizador;
-    private Music musicaFondo;
 
     @Override
     public void create() {
+        inicializarBatch();
+        inicializarFuentes();
 
-        musicaFondo = Gdx.audio.newMusic(Gdx.files.internal("sonidos/musica_fondo.wav"));
-        musicaFondo.setLooping(true);
-        musicaFondo.setVolume(0.2f);
-        musicaFondo.play();
+        setScreen(new PantallaInicio(this));
+    }
 
+    private void inicializarBatch() {
         batch = new SpriteBatch();
+    }
 
-        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("CherryCreamSoda-Regular.ttf"));
-        FreeTypeFontGenerator generator2 = new FreeTypeFontGenerator(Gdx.files.internal("Mikey.ttf"));
-        FreeTypeFontGenerator.FreeTypeFontParameter fontParams = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        FreeTypeFontGenerator.FreeTypeFontParameter fontParams2 = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        FreeTypeFontGenerator.FreeTypeFontParameter fontParams3 = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        fontParams.size = 24;
-        fontParams.color = Color.WHITE;
-        fontParams2.color = Color.BLACK;
-        fontParams3.size = 24;
-        fontParams3.color = Color.BLACK;
-        fuente = generator.generateFont(fontParams);
-        fuenteHUD = generator2.generateFont(fontParams2);
-        fuenteTemporizador = generator2.generateFont(fontParams3);
+    private void inicializarFuentes() {
+        fuente = generarFuente("CherryCreamSoda-Regular.ttf", 24, Color.WHITE);
+        fuenteHUD = generarFuente("Mikey.ttf", 16, Color.BLACK);
+        fuenteTemporizador = generarFuente("Mikey.ttf", 24, Color.BLACK);
+    }
+
+    private BitmapFont generarFuente(String archivo, int tamaño, Color color) {
+        FreeTypeFontGenerator generator =
+            new FreeTypeFontGenerator(Gdx.files.internal(archivo));
+
+        FreeTypeFontGenerator.FreeTypeFontParameter parametros =
+            new FreeTypeFontGenerator.FreeTypeFontParameter();
+
+        parametros.size = tamaño;
+        parametros.color = color;
+
+        BitmapFont font = generator.generateFont(parametros);
+
         generator.dispose();
-        generator2.dispose();
-        setScreen((Screen) new PantallaInicio(this));
+
+        return font;
     }
 
     @Override
     public void dispose() {
         super.dispose();
+
         batch.dispose();
+
         fuente.dispose();
-        if (musicaFondo != null) {
-            musicaFondo.dispose();
-        }
+        fuenteHUD.dispose();
+        fuenteTemporizador.dispose();
+
+    }
+
+    public SpriteBatch getBatch() {
+        return batch;
     }
 
     public BitmapFont getFuente() {
@@ -67,9 +76,5 @@ public class DinoSoulMain extends Game {
 
     public BitmapFont getFuenteTemporizador() {
         return fuenteTemporizador;
-    }
-
-    public SpriteBatch getBatch() {
-        return batch;
     }
 }
