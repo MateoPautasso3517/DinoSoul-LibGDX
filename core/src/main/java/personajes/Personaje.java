@@ -209,7 +209,11 @@ public abstract class Personaje {
             bonusVelocidad = 0f;
             tiempoBonus = 0f;
 
-            setTinte(Color.WHITE);
+            if (tinte == Color.YELLOW) {
+                setTinte(Color.WHITE);
+            } else if (tinte == Color.BROWN) {
+                setTinte(Color.PURPLE);
+            }
         }
     }
 
@@ -225,22 +229,25 @@ public abstract class Personaje {
             bonusDanio = 0f;
             tiempoBonusDanio = 0f;
 
-            setTinte(Color.WHITE);
+            if (tinte == Color.PURPLE) {
+                setTinte(Color.WHITE);
+            } else if (tinte == Color.BROWN) {
+                setTinte(Color.YELLOW);
+            }
         }
     }
 
-    private boolean hayColision(
-        TiledMapTileLayer capa,
-        float x,
-        float y
-    ) {
+    private boolean hayColision(TiledMapTileLayer capa, float x, float y) {
         int tileX = (int) x;
         int tileY = (int) y;
 
-        return tileX < 0
-            || tileY < 0
+        if (tileX < 0 || tileY < 0
             || tileX >= capa.getWidth()
-            || tileY >= capa.getHeight();
+            || tileY >= capa.getHeight()) {
+            return true;
+        }
+
+        return capa.getCell(tileX, tileY) != null;
     }
 
     public void dibujar(Batch batch) {
@@ -330,5 +337,9 @@ public abstract class Personaje {
 
     public void setTinte(Color tinte) {
         this.tinte = tinte;
+    }
+
+    public Color getTinte() {
+        return tinte;
     }
 }

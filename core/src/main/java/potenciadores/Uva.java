@@ -12,7 +12,11 @@ public class Uva extends Consumible{
     @Override
     public void aplicarEfecto(Personaje personaje) {
         personaje.agregarDanio(personaje.getDanio() * 0.40f, 15f);
-        personaje.setTinte(Color.PURPLE);
+        if (personaje.getTinte() == Color.YELLOW) {
+            personaje.setTinte(Color.BROWN);
+        } else {
+            personaje.setTinte(Color.PURPLE);
+        }
     }
 
 }

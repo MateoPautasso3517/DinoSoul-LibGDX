@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import pantallas.PantallaInicio;
 
 public class DinoSoulMain extends Game {
 
@@ -19,6 +20,7 @@ public class DinoSoulMain extends Game {
     public void create() {
         inicializarBatch();
         inicializarFuentes();
+
 
         setScreen(new PantallaInicio(this));
     }

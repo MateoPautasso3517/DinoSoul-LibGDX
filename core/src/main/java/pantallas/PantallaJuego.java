@@ -1,4 +1,4 @@
-package com.dinosoul;
+package pantallas;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
@@ -19,6 +19,8 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.dinosoul.DinoSoulMain;
+import pantallas.PantallaPausa;
 import personajes.Oliver;
 import personajes.Personaje;
 import potenciadores.*;
@@ -104,6 +106,10 @@ public class PantallaJuego extends ScreenAdapter {
         consumibles.add(
             new Limon(personaje.getX() + 2f, personaje.getY())
         );
+
+        consumibles.add(
+            new Uva(personaje.getX() + 4f, personaje.getY())
+        );
     }
 
     private Texture crearPixel() {
@@ -127,10 +133,19 @@ public class PantallaJuego extends ScreenAdapter {
 
     @Override
     public void render(float delta) {
-        actualizarJuego(delta);
-        dibujarJuego();
-        dibujarHUD();
+
+        if (Gdx.input.isKeyJustPressed(com.badlogic.gdx.Input.Keys.SPACE)) {
+            if (musicaFondo != null) musicaFondo.pause();
+
+            main.setScreen(new PantallaPausa(main, this));
+            return;
+        }
+            actualizarJuego(delta);
+            dibujarJuego();
+            dibujarHUD();
+
     }
+
 
     private void actualizarJuego(float delta) {
         actualizarCamara();
@@ -271,11 +286,11 @@ public class PantallaJuego extends ScreenAdapter {
 
         batch.draw(corazon, x, y, 32f, 32f);
 
-        // Fondo de la barra
+
         batch.setColor(Color.DARK_GRAY);
         batch.draw(pixel, barraX, barraY, anchoBarra, altoBarra);
 
-        // Vida actual
+
         batch.setColor(Color.RED);
         batch.draw(
             pixel,
@@ -304,7 +319,7 @@ public class PantallaJuego extends ScreenAdapter {
         );
 
         musicaFondo.setLooping(true);
-        musicaFondo.setVolume(0.2f);
+        musicaFondo.setVolume(1f);
         musicaFondo.play();
     }
 

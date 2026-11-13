@@ -12,6 +12,10 @@ public class Limon extends Consumible{
     @Override
     public void aplicarEfecto(Personaje personaje) {
         personaje.agregarVelocidad(personaje.getVelocidad() * 0.25f, 10f);
-        personaje.setTinte(Color.YELLOW);
+        if (personaje.getTinte() == Color.PURPLE) {
+            personaje.setTinte(Color.BROWN);
+        } else {
+            personaje.setTinte(Color.YELLOW);
+        }
     }
 }

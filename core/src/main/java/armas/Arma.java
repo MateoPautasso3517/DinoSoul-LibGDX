@@ -44,7 +44,8 @@ public abstract class Arma {
         float alto,
         float offsetX,
         float offsetY,
-        float distanciaAtaque
+        float distanciaAtaque,
+        String rutaSonido
     ) {
         this.textura = new Texture(rutaTextura);
         this.region = new TextureRegion(textura);
@@ -57,15 +58,16 @@ public abstract class Arma {
 
         this.distanciaAtaque = distanciaAtaque;
 
-        inicializarSonido();
+        sonido = inicializarSonido(rutaSonido);
     }
 
-    private void inicializarSonido() {
+    private Sound inicializarSonido(String rutaSonido) {
         if (sonido == null) {
             sonido = Gdx.audio.newSound(
-                Gdx.files.internal("sonidos/sonido_ataque.wav")
+                Gdx.files.internal(rutaSonido)
             );
         }
+        return sonido;
     }
 
     public void actualizar(
@@ -99,6 +101,7 @@ public abstract class Arma {
     private void actualizarAtaque(float delta) {
         if (!atacando && Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
             iniciarAtaque();
+            sonido.play();
         }
 
         if (atacando) {
